@@ -1,15 +1,16 @@
-import{Mobile} from './mobile'
+import{Mobile, Mobile2} from './mobile'
 export class MobileLibrary {
 
     private name: string
     private location: string
-    private mobiles: Mobile[]
+    private mobiles: Mobile2[]
     private totalPrice: number
 
-    constructor(nameP:string, locationP:string, mobilesP:Mobile[]){
+    constructor(nameP:string, locationP:string, mobilesP:Mobile2[]){
         this.name=nameP
         this.location=locationP
         this.mobiles=mobilesP
+        this.totalPrice= this.totalPriceCalculation()
     }
 
     getTotalPrice():number{
@@ -18,10 +19,10 @@ export class MobileLibrary {
     setTotalPrice(totalPrice:number){
         this.totalPrice=totalPrice
     }
-    getMobile():Mobile[]{
+    getMobile():Mobile2[]{
         return this.mobiles
     }
-    setMobiles(Mobile:Mobile[]){
+    setMobiles(Mobile:Mobile2[]){
         this.mobiles=Mobile
     }
     getLocation():string{
@@ -36,11 +37,16 @@ export class MobileLibrary {
     setName(name:string){
         this.name=name
     }
-    totalPriceCalculation():number{
+    private totalPriceCalculation():number{
         let resultado=0
         for(let i=0;i<this.mobiles.length;i++){
-           resultado+= this.mobiles[i].price
+           resultado+= this.mobiles[i].getPrice()
         }
         return resultado
+    }
+    printLibrary(){
+        console.log(`These are all my mobiles:`)
+        for(let i=0;i<this.mobiles.length;i++){console.log( this.mobiles[i].toString())}
+        console.log(`Price overall:${this.totalPriceCalculation()}`)
     }
 }
